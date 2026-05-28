@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="48dp"
+    android:viewportWidth="120"
+    android:viewportHeight="48">
+
+    <!-- Dark background -->
+    <path
+        android:fillColor="#0A0E1A"
+        android:pathData="M8,0 L112,0 Q120,0 120,8 L120,40 Q120,48 112,48 L8,48 Q0,48 0,40 L0,8 Q0,0 8,0 Z" />
+
+    <!-- C arc (blue) -->
+    <path
+        android:strokeColor="#2563EB"
+        android:strokeWidth="4"
+        android:fillColor="@android:color/transparent"
+        android:strokeLineCap="round"
+        android:pathData="M52,10 A14,14 0 1,0 52,38" />
+
+    <!-- A letter (white) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M56,38 L63,10 L70,10 L77,38 L71,38 L69.5,32 L63.5,32 L62,38 Z
+                          M65,26 L68,26 L66.5,18 Z" />
+
+    <!-- "chAs" wordmark text approximated as shapes -->
+</vector>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaskPulse</string>
+    <string name="accessibility_service_label">TaskPulse App Control</string>
+    <string name="accessibility_service_description">TaskPulse uses this service to detect app launches and enforce blocking rules.</string>
+    <string name="notification_service_label">TaskPulse Notification Manager</string>
+</resources>

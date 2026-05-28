@@ -1,0 +1,31 @@
+# Gradle
+.gradle/
+build/
+**/build/
+*.class
+
+# Android
+*.apk
+*.aab
+*.ap_
+*.dex
+*.keystore
+!debug.keystore
+keystore.jks
+
+# IDE
+.idea/
+*.iml
+*.iws
+.DS_Store
+Thumbs.db
+
+# Local configs
+local.properties
+gradle.properties.local
+
+# Test results
+app/build/reports/
+
+# Kotlin
+*.kotlin_module

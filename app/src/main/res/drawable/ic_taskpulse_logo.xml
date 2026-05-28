@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Dark background circle -->
+    <path
+        android:fillColor="#0A0E1A"
+        android:pathData="M54,54m-54,0a54,54 0,1 1,108 0a54,54 0,1 1,-108 0" />
+
+    <!-- Blue glow ring arc -->
+    <path
+        android:strokeColor="#2563EB"
+        android:strokeWidth="2.5"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M22,30 A36,36 0 1,1 85,62" />
+
+    <!-- Heartbeat pulse tick at top-right -->
+    <path
+        android:strokeColor="#60A5FA"
+        android:strokeWidth="2"
+        android:fillColor="@android:color/transparent"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M76,25 L80,25 L83,19 L86,31 L89,25 L93,25" />
+
+    <!-- T letter (white) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20,30 L58,30 L58,37 L43,37 L43,72 L35,72 L35,37 L20,37 Z" />
+
+    <!-- P letter (blue gradient via solid) -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M48,36 L48,72 L56,72 L56,58 L66,58 C74,58 80,52 80,47 C80,41 74,36 66,36 Z
+                          M56,43 L66,43 C70,43 72,45 72,47 C72,49 70,51 66,51 L56,51 Z" />
+</vector>
