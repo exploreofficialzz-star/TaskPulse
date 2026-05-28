@@ -87,6 +87,8 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main'
     environment: production
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
