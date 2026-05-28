@@ -109,7 +109,7 @@ jobs:
 
       - name: Decode Keystore
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/keystore.jks
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | tr -d '\n\r ' | base64 -d > app/keystore.jks
 
       - name: Build Release APK
         run: ./gradlew assembleRelease --stacktrace
