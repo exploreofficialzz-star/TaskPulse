@@ -20,8 +20,8 @@ jobs:
 
       - name: Fix Gradle Wrapper
         run: |
-          chmod +x .github/workflows/setup-wrapper.sh
-          .github/workflows/setup-wrapper.sh
+          curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.5.0/gradle/wrapper/gradle-wrapper.jar" \
+            -o gradle/wrapper/gradle-wrapper.jar
 
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
@@ -55,8 +55,8 @@ jobs:
 
       - name: Fix Gradle Wrapper
         run: |
-          chmod +x .github/workflows/setup-wrapper.sh
-          .github/workflows/setup-wrapper.sh
+          curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.5.0/gradle/wrapper/gradle-wrapper.jar" \
+            -o gradle/wrapper/gradle-wrapper.jar
 
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
@@ -92,8 +92,8 @@ jobs:
 
       - name: Fix Gradle Wrapper
         run: |
-          chmod +x .github/workflows/setup-wrapper.sh
-          .github/workflows/setup-wrapper.sh
+          curl -sL "https://raw.githubusercontent.com/gradle/gradle/v8.5.0/gradle/wrapper/gradle-wrapper.jar" \
+            -o gradle/wrapper/gradle-wrapper.jar
 
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
