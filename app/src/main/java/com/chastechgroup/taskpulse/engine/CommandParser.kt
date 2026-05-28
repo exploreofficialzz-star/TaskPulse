@@ -92,13 +92,13 @@ object CommandParser {
 
     // ── Time patterns ─────────────────────────────────────────────────
     private val TIME_PATTERNS = listOf(
-        Pattern.compile("(\\d+)\\s*hours?", Pattern.CASE_INSENSITIVE),
+        Pattern.compile("(\\d+)\\s*hours?\\b", Pattern.CASE_INSENSITIVE),
         Pattern.compile("(\\d+)\\s*h\\b", Pattern.CASE_INSENSITIVE),
-        Pattern.compile("(\\d+)\\s*minutes?", Pattern.CASE_INSENSITIVE),
-        Pattern.compile("(\\d+)\\s*mins?", Pattern.CASE_INSENSITIVE),
+        Pattern.compile("(\\d+)\\s*minutes?\\b", Pattern.CASE_INSENSITIVE),
+        Pattern.compile("(\\d+)\\s*mins?\\b", Pattern.CASE_INSENSITIVE),
         Pattern.compile("(\\d+)\\s*m\\b", Pattern.CASE_INSENSITIVE),
-        Pattern.compile("(\\d+)\\s*seconds?", Pattern.CASE_INSENSITIVE),
-        Pattern.compile("(\\d+)\\s*secs?", Pattern.CASE_INSENSITIVE)
+        Pattern.compile("(\\d+)\\s*seconds?\\b", Pattern.CASE_INSENSITIVE),
+        Pattern.compile("(\\d+)\\s*secs?\\b", Pattern.CASE_INSENSITIVE)
     )
     private val UNTIL_PATTERN =
         Pattern.compile("until\\s+(\\d+)(?::(\\d+))?\\s*(am|pm)?", Pattern.CASE_INSENSITIVE)
@@ -151,7 +151,6 @@ object CommandParser {
 
     // ── Action Detection ────────────────────────────────────────────
     private fun detectAction(lower: String): CommandAction {
-        // Mode activation takes priority
         if (MODE_MAP.keys.any { lower.contains(it) } &&
             (lower.contains("enable") || lower.contains("activate") ||
              lower.contains("start") || lower.contains("turn on") ||
@@ -170,7 +169,6 @@ object CommandParser {
     // ── App Detection ────────────────────────────────────────────────
     private fun detectApps(lower: String): List<String> {
         val found = mutableListOf<String>()
-        // Sort by length descending so longer phrases match first
         APP_MAP.entries.sortedByDescending { it.key.length }.forEach { (name, pkg) ->
             if (lower.contains(name) && pkg !in found) found.add(pkg)
         }
@@ -184,7 +182,6 @@ object CommandParser {
 
     // ── Duration Parsing ─────────────────────────────────────────────
     fun parseDuration(lower: String): Long {
-        // "for a while" → 1 hour
         if (FOR_AWHILE_PATTERN.matcher(lower).find()) return 3600L
 
         var totalSeconds = 0L
@@ -194,8 +191,8 @@ object CommandParser {
                 val value = matcher.group(1)?.toLongOrNull() ?: continue
                 totalSeconds += when (index) {
                     0, 1 -> value * 3600      // hours
-                    2, 3, 4 -> value * 60    // minutes
-                    5, 6 -> value            // seconds
+                    2, 3, 4 -> value * 60     // minutes
+                    5, 6 -> value             // seconds
                     else -> 0
                 }
             }
