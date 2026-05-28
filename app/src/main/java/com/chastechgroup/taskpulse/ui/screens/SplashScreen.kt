@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.chastechgroup.taskpulse.R
 import com.chastechgroup.taskpulse.ui.theme.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun SplashScreen(onFinished: () -> Unit) {
@@ -136,7 +137,6 @@ fun SplashScreen(onFinished: () -> Unit) {
                     color = if (isDark) TextOnDark50 else TextOnLight50
                 )
                 Spacer(Modifier.height(8.dp))
-                // chAs brand logo
                 Image(
                     painter = painterResource(R.drawable.ic_chas_logo),
                     contentDescription = "chAs Technologies LLC",
