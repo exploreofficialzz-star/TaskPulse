@@ -18,6 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Fix Gradle Wrapper
+        run: |
+          chmod +x .github/workflows/setup-wrapper.sh
+          .github/workflows/setup-wrapper.sh
+
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
         with:
@@ -47,6 +52,11 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v4
+
+      - name: Fix Gradle Wrapper
+        run: |
+          chmod +x .github/workflows/setup-wrapper.sh
+          .github/workflows/setup-wrapper.sh
 
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
@@ -79,6 +89,11 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v4
+
+      - name: Fix Gradle Wrapper
+        run: |
+          chmod +x .github/workflows/setup-wrapper.sh
+          .github/workflows/setup-wrapper.sh
 
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
