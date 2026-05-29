@@ -9,27 +9,27 @@ val Blue400   = Color(0xFF60A5FA)
 val Blue300   = Color(0xFF93C5FD)
 val Cyan400   = Color(0xFF22D3EE)
 
-// Dark Theme
-val Navy950   = Color(0xFF060B18)
-val Navy900   = Color(0xFF0A0E1A)
-val Navy800   = Color(0xFF0D1226)
-val Navy700   = Color(0xFF111932)
-val Navy600   = Color(0xFF182040)
-val SurfaceDark  = Color(0xFF131B2E)
-val SurfaceDark2 = Color(0xFF1A2440)
-val BorderDark   = Color(0xFF1E2D4A)
+// Pure Black AMOLED Dark Theme
+val Navy950   = Color(0xFF000000)   // pure black background
+val Navy900   = Color(0xFF080808)   // near black
+val Navy800   = Color(0xFF0D0D0D)   // cards / elevated
+val Navy700   = Color(0xFF111111)   // containers
+val Navy600   = Color(0xFF1A1A1A)   // secondary containers
+val SurfaceDark  = Color(0xFF0F0F0F) // card surface
+val SurfaceDark2 = Color(0xFF161616) // elevated card
+val BorderDark   = Color(0xFF242424) // dividers / borders
 
-// Light Theme
+// Light Theme (unchanged)
 val LightBg      = Color(0xFFF8FAFF)
 val LightSurface = Color(0xFFFFFFFF)
 val LightSurface2= Color(0xFFF0F4FF)
 val LightBorder  = Color(0xFFDDE5F5)
 
 // Text
-val TextOnDark   = Color(0xFFE8EEFF)
-val TextOnDark70 = Color(0xB3E8EEFF)
-val TextOnDark50 = Color(0x80E8EEFF)
-val TextOnDark20 = Color(0x33E8EEFF)
+val TextOnDark   = Color(0xFFEEEEEE)
+val TextOnDark70 = Color(0xB3EEEEEE)
+val TextOnDark50 = Color(0x80EEEEEE)
+val TextOnDark20 = Color(0x33EEEEEE)
 val TextOnLight  = Color(0xFF0F1A35)
 val TextOnLight70= Color(0xB30F1A35)
 val TextOnLight50= Color(0x800F1A35)
