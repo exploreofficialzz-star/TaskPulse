@@ -707,9 +707,9 @@ object CommandParser {
 
     private fun normalize(text: String): String =
         text.lowercase()
-            .replace(Regex("[''`]"), "'")
-            .replace(Regex("[\""]"), "\"")
-            .replace(Regex("[–—]"), "-")
+            .replace(Regex("[\u2018\u2019\u0060]"), "'")
+            .replace(Regex("[\u201C\u201D]"), "\"")
+            .replace(Regex("[\u2013\u2014]"), "-")
             .replace(Regex("[^a-z0-9\\s'.,!?@#]"), " ")
             .replace(Regex("\\s+"), " ")
             .trim()
