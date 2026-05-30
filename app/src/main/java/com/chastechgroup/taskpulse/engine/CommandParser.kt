@@ -671,16 +671,22 @@ object CommandParser {
         val action = classifyIntent(corrected, apps, category, mode)
 
         // Step 5 — Determine trigger
+        // ON_APP_OPEN takes priority — "when I open X, block after Y min" should not
+        // be misread as a scheduled/delayed block just because it contains "after Y min"
+        val hasOpenTrigger  = TRIGGER_OPEN_PATTERN.matcher(corrected).find()
+        val hasUsageTrigger = TRIGGER_USAGE_PATTERN.matcher(corrected).find()
+        val effectiveDelay  = if (hasOpenTrigger) 0L else delay
+
         val trigger = when {
-            delay > 0L -> CommandTrigger.SCHEDULED
-            TRIGGER_OPEN_PATTERN.matcher(corrected).find() -> CommandTrigger.ON_APP_OPEN
-            TRIGGER_USAGE_PATTERN.matcher(corrected).find() -> CommandTrigger.ON_TIME_LIMIT
+            hasOpenTrigger  -> CommandTrigger.ON_APP_OPEN
+            hasUsageTrigger -> CommandTrigger.ON_TIME_LIMIT
+            effectiveDelay > 0L -> CommandTrigger.SCHEDULED
             else -> CommandTrigger.IMMEDIATE
         }
         val triggerApp   = extractTriggerApp(corrected)
         val triggerUsage = extractTriggerUsage(corrected)
 
-        val finalAction = if (delay > 0L && action == CommandAction.BLOCK_APP)
+        val finalAction = if (effectiveDelay > 0L && action == CommandAction.BLOCK_APP)
             CommandAction.SCHEDULE_BLOCK else action
 
         return ParsedCommand(
@@ -688,7 +694,7 @@ object CommandParser {
             targetApps          = apps,
             targetCategory      = category,
             durationSeconds     = duration,
-            delaySeconds        = delay,
+            delaySeconds        = effectiveDelay,
             untilTimestamp      = untilTs,
             trigger             = trigger,
             triggerApp          = triggerApp,
@@ -812,9 +818,40 @@ object CommandParser {
             .firstOrNull { text.contains(it.key) }?.value
 
     fun parseDuration(text: String): Long {
+        val lower = text.lowercase()
+
+        // Fuzzy phrase → seconds (checked before numeric patterns)
+        val fuzzy = mapOf(
+            "for a while" to 3600L, "for now" to 3600L,
+            "for some time" to 3600L, "for a bit" to 900L,
+            "for a moment" to 900L, "for a little while" to 900L,
+            "for a few minutes" to 900L, "for some minutes" to 900L,
+            "for a couple minutes" to 120L, "for a couple hours" to 7200L,
+            "for a couple of hours" to 7200L, "for a sec" to 60L,
+            "for a long while" to 14400L, "for a very long time" to 14400L,
+            "all day" to 86400L, "all of today" to 86400L,
+            "the whole day" to 86400L, "rest of the day" to 86400L,
+            "all night" to 28800L, "tonight" to 28800L,
+            "all morning" to 10800L, "all afternoon" to 14400L,
+            "all evening" to 10800L, "this evening" to 10800L,
+            "during my workout" to 5400L, "while i exercise" to 5400L,
+            "at the gym" to 5400L, "during my commute" to 3600L,
+            "on the bus" to 3600L, "on the train" to 3600L,
+            "during lunch" to 3600L, "during dinner" to 3600L,
+            "during breakfast" to 1800L, "while i eat" to 3600L,
+            "a pomodoro" to 1500L, "one pomodoro" to 1500L,
+            "forever" to 31536000L, "permanently" to 31536000L,
+            "indefinitely" to 31536000L
+        )
+        // Longest match first
+        fuzzy.entries.sortedByDescending { it.key.length }
+            .firstOrNull { lower.contains(it.key) }
+            ?.let { return it.value }
+
+        // Numeric patterns
         var total = 0L
         TIME_PATTERNS.forEachIndexed { i, p ->
-            val m = p.matcher(text)
+            val m = p.matcher(lower)
             while (m.find()) {
                 val v = m.group(1)?.toLongOrNull() ?: continue
                 total += when (i) { 0, 1 -> v * 3600; 2, 3, 4 -> v * 60; else -> v }
