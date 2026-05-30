@@ -5,6 +5,7 @@ data class ParsedCommand(
     val targetApps: List<String> = emptyList(),
     val targetCategory: AppCategory? = null,
     val durationSeconds: Long = 0L,
+    val delaySeconds: Long = 0L,
     val untilTimestamp: Long = 0L,
     val trigger: CommandTrigger = CommandTrigger.IMMEDIATE,
     val triggerApp: String? = null,
