@@ -635,7 +635,7 @@ object CommandParser {
         "until\\s+(\\d+)(?::(\\d+))?\\s*(am|pm)?", Pattern.CASE_INSENSITIVE
     )
     private val TRIGGER_OPEN_PATTERN = Pattern.compile(
-        "when(?:ever)?\\s+(?:i\\s+)?(?:open|launch|start|use|go\\s+on|visit|check)\\s+([\\w\\s]+?)(?:\\s*,|\\s+block|\\s+lock|\\s+stop|$)",
+        "when(?:ever)?\\s+(?:i\\s+)?(?:open|launch|start|use|go\\s+on|visit|check)\\s+([\\w\\s]+?)(?:\\s*,|\\s+block|\\s+lock|\\s+stop|\$)",
         Pattern.CASE_INSENSITIVE
     )
     private val TRIGGER_USAGE_PATTERN = Pattern.compile(
