@@ -45,7 +45,7 @@ class RuleEngine(private val context: Context) {
         return BlockDetails(
             appName     = APP_DISPLAY_NAMES[packageName] ?: packageName.split(".").last()
                 .replaceFirstChar { it.uppercase() },
-            expiresAt   = block.expiresAt,
+            expiresAt   = block.unblockAt,
             ruleName    = rule?.name ?: "Blocked by TaskPulse",
             blockReason = rule?.description ?: ""
         )
@@ -152,7 +152,13 @@ class RuleEngine(private val context: Context) {
     ) {
         targets.forEach { pkg ->
             db.appInfoDao().insertBlockedApp(
-                BlockedAppEntity(pkg, startTime, expiry, ruleId, label)
+                BlockedAppEntity(
+                    packageName = pkg,
+                    blockedAt   = startTime,
+                    unblockAt   = expiry,
+                    ruleId      = ruleId,
+                    reason      = label
+                )
             )
             db.appInfoDao().setAppBlocked(pkg, true)
         }

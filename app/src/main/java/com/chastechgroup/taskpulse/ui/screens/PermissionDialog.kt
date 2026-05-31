@@ -45,20 +45,15 @@ fun PermissionRequestDialog(
     val context = LocalContext.current
     val isDark  = isSystemInDarkTheme()
 
-    // Auto-recheck when user comes back from settings
+    // Auto-recheck every 2 seconds after user navigated to settings
     var hasNavigatedToSettings by remember { mutableStateOf(false) }
-
-    // Lifecycle-aware recheck — fires when composition resumes from background
-    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
-    DisposableEffect(lifecycleOwner) {
-        val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
-            if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME && hasNavigatedToSettings) {
-                hasNavigatedToSettings = false
+    LaunchedEffect(hasNavigatedToSettings) {
+        if (hasNavigatedToSettings) {
+            while (true) {
+                delay(2000)
                 onRecheck()
             }
         }
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
     ModalBottomSheet(
