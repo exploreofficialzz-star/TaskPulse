@@ -142,7 +142,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch { repo.toggleRule(id, active) }
 
     fun activateQuickMode(mode: FocusMode, durationHours: Int = 1) {
-        val input = "${mode.name.lowercase()} mode for $durationHours hour${if (durationHours > 1) "s" else ""}"
+        val suffix = if (durationHours > 1) "s" else ""
+        val input  = "${mode.name.lowercase()} mode for $durationHours hour$suffix"
         _uiState.update { it.copy(commandInput = input) }
         runCommand()
     }
