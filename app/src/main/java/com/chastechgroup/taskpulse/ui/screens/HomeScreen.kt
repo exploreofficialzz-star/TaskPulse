@@ -181,6 +181,15 @@ fun HomeScreen(
                 onBuyPoints = { viewModel.dismissPointsAlert(); onNavigateToStore() }
             )
         }
+
+        // Permission gate dialog — shown when a command needs a missing permission
+        uiState.permissionRequest?.let { request ->
+            PermissionRequestDialog(
+                request   = request,
+                onDismiss = viewModel::dismissPermissionRequest,
+                onRecheck = viewModel::recheckPermissions
+            )
+        }
     }
 }
 
