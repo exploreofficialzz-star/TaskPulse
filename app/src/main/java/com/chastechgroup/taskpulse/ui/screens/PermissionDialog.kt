@@ -2,6 +2,7 @@ package com.chastechgroup.taskpulse.ui.screens
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -198,6 +199,3 @@ private fun permissionIcon(type: RequiredPermissionType): ImageVector = when (ty
     RequiredPermissionType.NOTIFICATION_ACCESS -> Icons.Default.Notifications
     RequiredPermissionType.USAGE_ACCESS        -> Icons.Default.BarChart
 }
-
-@Composable
-private fun isSystemInDarkTheme() = androidx.compose.foundation.isSystemInDarkTheme()
